@@ -1,0 +1,146 @@
+.gift{
+  padding: 209px 0 194px;
+    &-box{
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      padding: 49px 50px 49px 90px;
+      margin-left: -30px;
+      margin-bottom: -10px;
+      transition: all .4s ease;
+        &:before{
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          transition: opacity .4s ease;
+          pointer-events: none;
+          background: radial-gradient(93.21% 77.59% at 50.1% 50%, rgba(255, 255, 255, 0.64) 0%, #FFFFFF 90.62%);
+        }
+        &-icon{
+          position: absolute;
+          top: 46px;
+          left: 31px;
+          width: 34px;
+          height: 34px;
+            img, picture{
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%,-50%);
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+              object-position: center;
+            }
+            @include d(1300){
+              top: 37px;
+              left: 22px;
+            }
+            @include d(767){
+              top: 25px;
+              left: 2px;
+            }
+        }
+        &-title{
+          position: relative;
+          margin-bottom: 12px;
+        }
+        &-description{
+          position: relative;
+        }
+        &:nth-child(1){
+          margin-top: 10px;
+        }
+        &:nth-child(2){
+          .gift-box-icon{
+            img, picture{
+              height: 90%;
+            }
+          }
+        }
+        &:last-child{
+          margin-bottom: 0;
+        }
+        &.is-active{
+          box-shadow: 0 16px 45px rgba(54, 54, 54, 0.1);
+            &:before{
+              opacity: .7;
+            }
+        }
+        @include hover(991){
+          &:hover{
+            box-shadow: 0 16px 45px rgba(54, 54, 54, 0.1);
+              &:before{
+                opacity: .7;
+              }
+          }
+        }
+        @include d(1300){
+          padding: 40px 40px 30px 80px;
+        }
+        @include d(991){
+          margin-left: 0;
+        }
+        @include d(767){
+          padding: 29px 10px 30px 52px;
+        }
+    }
+    &-action{
+      margin-top: 30px;
+      padding-left: 60px;
+        @include d(767){
+          padding-left: 52px;
+        }
+    }
+    &-preview{
+      margin: -5px -55px 0 -13px;
+        .image{
+          transform-style: preserve-3d;
+        }
+        .book-tooltip{
+          &.__1{
+            left: 10.4%;
+            top: 47.9%;
+          }
+          &.__2{
+            left: 75.1%;
+            top: 48%;
+            transform: translateX(0);
+          }
+          &.__3{
+            top: 22.7%;
+            right: 55.9%;
+          }
+          @include d(991){
+            display: none;
+          }
+        }
+        @include d(991){
+          margin: 0 -50px 0 50px;
+        }
+        @include d(767){
+          margin: 32px -52px 0 -5px;
+        }
+    }
+    .title-1{
+      max-width: 700px;
+      margin: 32px 0;
+        @include d(767){
+          max-width: 90%;
+          margin: 15px 0;
+        }
+    }
+    @include d(1300){
+      padding: 140px 0;
+    }
+    @include d(991){
+      overflow: hidden;
+    }
+    @include d(767){
+      padding: 76px 0 61px;
+    }
+}

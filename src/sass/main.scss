@@ -1,0 +1,31 @@
+// SETTINGS //
+@import "base/colors";
+@import "base/mixins";
+@import "base/base";
+@import "base/fonts";
+@import "base/classes";
+
+// LIBRARIES //
+@import "../libs/grid.min.css";
+@import "../libs/slick.css";
+@import "../libs/jquery.modal.css";
+
+// COMPONENTS //
+@import "components/header";
+@import "components/nav";
+@import "components/folder";
+@import "components/flipbook";
+@import "components/page-template";
+@import "components/slick-settings";
+@import "components/advantages";
+@import "components/stock-photos";
+@import "components/video";
+@import "components/gifts";
+@import "components/gift";
+@import "components/photos";
+@import "components/reviews";
+@import "components/faq";
+@import "components/footer";
+@import "components/modal";
+@import "components/input";
+@import "components/general";

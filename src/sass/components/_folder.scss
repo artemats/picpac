@@ -1,0 +1,155 @@
+.folder{
+  padding: 231px 0 63px;
+  background-color: $bg;
+  overflow: hidden;
+    &-content{
+      color: $white;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+        &-logo{
+          max-width: 160px;
+          margin: 0 auto 20px;
+          transition: transform .8s ease, width .4s ease, top .8s ease;
+            @include m(1201){
+              display: none;
+            }
+            @include d(575){
+              max-width: 86px;
+            }
+        }
+        &-title{
+          max-width: 520px;
+          margin: 0 auto 21px;
+            @include d(991){
+              max-width: 480px;
+            }
+            @include d(767){
+              max-width: 400px;
+            }
+            @include d(575){
+              max-width: 300px;
+              margin: 0 auto 14px;
+                .title-1{
+                  font-size: 40px;
+                  line-height: 1em;
+                }
+            }
+        }
+        &-description{
+          @include d(991){
+            max-width: 70%;
+            margin: 0 auto;
+          }
+          @include d(575){
+            max-width: 252px;
+          }
+        }
+    }
+    &-carousel{
+      margin: -138px 0 -152px;
+      z-index: 1;
+        &-slide{
+          padding: 200px 0;
+          margin: 0 60px;
+          pointer-events: none;
+            &.slick-current{
+              pointer-events: auto;
+                .folder-book{
+                  transform: scale(1);
+                    &.is-visible-tooltips{
+                      .book-tooltip{
+                        opacity: 1;
+                        pointer-events: auto;
+                      }
+                    }
+                }
+                & ~ .folder-carousel-slide{
+                  .folder-book{
+                    transform: scale(.8) translateX(-12%);
+                      @include d(767){
+                        transform: none;
+                      }
+                  }
+                }
+            }
+            @include d(1300){
+              margin: 0 30px;
+            }
+            @include d(991){
+              margin: 0;
+            }
+            @include d(575){
+              padding: 100px 0;
+            }
+        }
+        &-dots{
+          z-index: 1;
+          margin: 0 auto;
+          width: 400px;
+          position: relative;
+            @include d(575){
+              width: 240px;
+                .slick-list{
+                  padding: 0 !important;
+                }
+            }
+        }
+        @include d(1200){
+          margin: -170px 0 -185px;
+        }
+        @include d(575){
+          margin: -108px 0 -105px;
+        }
+    }
+    &-book{
+      height: 474px;
+      width: 950px;
+      position: relative;
+      margin: 0 auto;
+      transform: scale(.8) translateX(12%);
+      transition: transform .8s ease;
+        @include d(991){
+          height: 360px;
+          width: 760px;
+        }
+        @include d(767){
+          height: 250px;
+          width: 570px;
+          transform: none;
+        }
+        @include d(575){
+          height: 270px;
+          width: 480px;
+        }
+        @include d(480){
+          height: 230px;
+          width: 320px;
+        }
+    }
+    &.enable-animation{
+      .folder-carousel-slide.slick-current{
+        //@for $i from 1 through 3 {
+        //  .book-tooltip:nth-child(#{$i}) {
+        //    &:before{
+        //      animation: bounce 2s infinite ease;
+        //      animation-delay: $i * 1s;
+        //    }
+        //  }
+        //}
+      }
+    }
+    @include d(1200){
+      padding: 140px 0 60px;
+    }
+    @include d(991){
+      padding: 40px 0 60px;
+    }
+    @include d(575){
+      padding: 38px 0 44px;
+    }
+}
+
+//.folder-carousel-slide:not(.slick-current){
+//  transform: none !important;
+//}

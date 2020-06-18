@@ -1,0 +1,84 @@
+.modal{
+  border-radius: 0;
+  max-width: 1195px;
+  box-shadow: none;
+  width: 98%;
+  padding: 0;
+    &-content{
+      display: flex;
+      position: relative;
+        &-preview{
+          height: 100%;
+          flex: 1;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          max-width: 541px;
+            @include d(767){
+              display: none;
+            }
+        }
+        &-description{
+          flex: 1;
+          padding: 86px 40px 10px 73px;
+          max-width: 711px;
+            .title-1{
+              margin-bottom: 21px;
+            }
+            .title-3{
+              padding-right: 50px;
+              margin-bottom: 41px;
+              max-width: 460px;
+                @include d(767){
+                  padding-right: 0;
+                }
+            }
+            .paragraph{
+              opacity: 1;
+              max-width: 460px;
+                .red{
+                  @extend .medium;
+                }
+            }
+            @include d(575){
+              padding: 50px 30px;
+            }
+        }
+        @include m(768){
+          min-height: 711px;
+          height: 10px;
+        }
+    }
+    a.close-modal{
+      background-image: url('../img/icons/close.svg');
+      background-size: 12px;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .form{
+      max-width: 460px;
+      margin: 26px 0;
+        &-detail{
+          margin-top: 141px;
+            @include d(575){
+              margin-top: 80px;
+            }
+        }
+    }
+}
+
+.blocker{
+  z-index: 99;
+  background-color: rgba(9,9,9,.67);
+  padding: 20px 0;
+}
+
+.close-modal{
+  transition: transform .4s ease;
+    @include hover(991){
+      &:hover{
+        transform: rotate(180deg);
+      }
+    }
+}
