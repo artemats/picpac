@@ -5,6 +5,7 @@ const nav = $('.header-nav');
 const body = $('body');
 const burger = $('.burger');
 const header = $('.header');
+let enableShowTooltip = true;
 const folderBook = {
   width: 950,
   height: 472
@@ -46,6 +47,18 @@ const initBook = () => {
             gradients: true,
             autoCenter: false,
             duration: 800,
+            when: {
+                start: function(event, pageObject, corner) {
+                    if (pageObject.next == 1 || pageObject.next == pagesCount) {
+                        event.preventDefault();
+                    }
+                },
+                turning: function(event, page, view) {
+                    if (page == 1 || page == pagesCount) {
+                        event.preventDefault();
+                    }
+                }
+            }
         }).bind("turning", function(event, page, view) {
             $('.book-tooltip').removeClass('is-open-info');
             $('.folder-book').addClass('is-visible-tooltips');
@@ -57,6 +70,7 @@ const initBook = () => {
             flipbook.closest('.folder-book').removeClass('is-visible-tooltips');
             flipbook.closest('.book-container').addClass('first');
         }).turn("next");
+        pagesCount = flipbook.turn("pages");
     });
 };
 
@@ -81,6 +95,7 @@ const removeWebp = () => {
 
 const folderCarousel = $('.folder-carousel');
 const giftsCarousel = $('.gifts-carousel');
+const folderCarouselDots = $('.folder-carousel-dots');
 folderCarousel.slick({
     dots: false,
     arrows: true,
@@ -95,12 +110,13 @@ folderCarousel.slick({
     cssEase: 'ease'
 }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     $('.folder-carousel-dots').slick('slickGoTo', nextSlide);
-}).on('afterChange', function (event, slick, currentSlide, nextSlide) {
-    scaleFolderCurrentSlide();
+});
+let folderSlides = null;
+$('.folder-carousel-slide').each(function (i) {
+    folderSlides = i;
 });
 
-
-$('.folder-carousel-dots').slick({
+folderCarouselDots.slick({
     dots: false,
     arrows: false,
     infinite: true,
@@ -138,6 +154,8 @@ giftsCarousel.slick({
     ]
 });
 giftsCarousel.slick('slickNext');
+folderCarousel.slick('slickNext');
+folderSlides <= 1 ? folderCarouselDots.hide() : null;
 
 $('.gifts-carousel-preview').slick({
     dots: false,
@@ -319,6 +337,7 @@ $(function () {
 let photosScene = null;
 const stockPhotosOnScroll = () => {
     const photosSection = $('.photos');
+    const tooltip = photosSection.find('.book-tooltip.toggle');
     $('.photos-book-slide:visible .stock-box').each(function () {
         let box = $(this);
         let boxPos = null;
@@ -357,8 +376,13 @@ const stockPhotosOnScroll = () => {
             .setTween(stockTween)
             // .addIndicators({name: "photos"})
             .addTo(controller)
-            .on("progress", () => photosSection.removeClass('is-show-book'))
-            .on("end", () => photosSection.toggleClass('is-show-book'));
+            .on("progress", () => {
+                photosSection.removeClass('is-show-book');
+            })
+            .on("end", () => {
+                photosSection.toggleClass('is-show-book');
+                enableShowTooltip ? tooltip.addClass('is-open-info') : null;
+            });
     });
 };
 
@@ -412,36 +436,6 @@ $(function () {
         .addTo(controller);
 });
 
-// FIXED HEADER ON SCROLL //
-$(function () {
-    // if(windowWidth >= 1200) {
-    //     const header = $('.header');
-    //     let headerLogoTween = TweenMax.fromTo('.header-logo', 1,
-    //         {
-    //             y: 91,
-    //             width: 163,
-    //             ease: Linear.easeNone
-    //         },
-    //         {
-    //             y: 0,
-    //             width: 86,
-    //             ease: Linear.easeNone,
-    //         }, 0.15);
-    //     let footerScene = new ScrollMagic.Scene(
-    //         {
-    //             triggerHook: -1,
-    //             triggerElement: '#wrapper',
-    //             reverse: true,
-    //             duration: 77
-    //         })
-    //         .setTween(headerLogoTween)
-    //         // .addIndicators({name: "Header"})
-    //         .addTo(controller)
-    //         .on("progress", () => header.removeClass('is-fixed'))
-    //         .on("end", () => header.addClass('is-fixed'));
-    // }
-});
-
 // ANCHOR SCROLL ON CLICK //
 $(document).on('click', '.scroll-to', function (e) {
     e.preventDefault();
@@ -458,30 +452,6 @@ $(document).on('click', '.scroll-to', function (e) {
         closeMenu();
     }
 });
-
-// SCALE GOLDER CURRENT SLIDER //
-const scaleFolderCurrentSlide = () => {
-    // let currentSlide = $('.folder-carousel').find('.slick-current');
-    // let folderCurrentTween = TweenMax.fromTo(currentSlide, 1,
-    //     {
-    //         scale: 1,
-    //         ease: Linear.easeNone
-    //     },
-    //     {
-    //         scale: 1.1,
-    //         ease: Linear.easeNone,
-    //     }, 0.15);
-    // new ScrollMagic.Scene(
-    //     {
-    //         // triggerHook: 1,
-    //         triggerElement: '.folder-carousel-slide.slick-current .folder-book',
-    //         reverse: true,
-    //         duration: '100%'
-    //     })
-    //     .setTween(folderCurrentTween)
-    //     .addIndicators({name: "folder"})
-    //     .addTo(controller);
-};
 
 // GIFTS CAROUSEL NAV ON CLICK //
 $(document).on('click', '.gifts-carousel-nav .carousel-nav-btn.__next', function () {
@@ -550,7 +520,7 @@ $(document).on('click',  '.book-tooltip.toggle', function () {
     // photosBookCount < bookSlides ? photosBookCount += 1 : photosBookCount = 0;
     // const activeSlide = $('.photos-book-slide').eq(photosBookCount);
     // $('.photos-book-slide').not(activeSlide).hide();
-    // activeSlide.fadeIn(500);
+    // activeSlide.fadeIn(800);
     $('.photos-book-carousel').slick('slickNext');
     stockPhotosOnScroll();
 });
@@ -561,7 +531,10 @@ $('.photos-book-carousel').slick({
     arrows: false,
     fade: true,
     cssEase: 'ease',
-    speed: 500
+    speed: 200
+}).on('afterChange', function () {
+   $('.photos .book-tooltip.toggle').removeClass('is-open-info');
+    enableShowTooltip = false;
 });
 
 // PLAY REVIEW VIDEOS ON HOVER //
@@ -719,23 +692,19 @@ $(window).on('scroll', function () {
         }
     });
 
-
     fixedHeader(scrollPos);
-
 });
 
-$(window).on('load', function () {
-    folderCarousel.slick('slickNext');
+$(document).ready(function () {
+    initBook();
+
     stockPhotosOnScroll();
     switchTooltipsOnActiveSlide();
     startProgressbar();
-    scaleFolderCurrentSlide();
     fixedHeader($(window).scrollTop());
-
-    initBook();
 
     setTimeout(function () {
         $('#wrapper').removeClass('loading');
-    }, 800);
+    }, 400);
 
 });

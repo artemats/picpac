@@ -365,11 +365,13 @@ p, li{
       }
       &.toggle {
         opacity: 0;
-          &:hover {
-            .book-tooltip-info {
-              opacity: 1;
-            }
-          }
+          //@include hover(991){
+          //  &:hover {
+          //    .book-tooltip-info {
+          //      opacity: 1;
+          //    }
+          //  }
+          //}
       }
       &.switch{
         &.is-active{
